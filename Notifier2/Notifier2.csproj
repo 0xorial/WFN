@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+    <PropertyGroup>
+        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+        <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+        <ProjectGuid>{124FE71B-3B65-4FE1-9DEE-CC0A245FFF9A}</ProjectGuid>
+        <OutputType>WinExe</OutputType>
+        <RootNamespace>Notifier2</RootNamespace>
+        <AssemblyName>Notifier2</AssemblyName>
+        <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+        <FileAlignment>512</FileAlignment>
+        <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+        <WarningLevel>4</WarningLevel>
+        <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>full</DebugType>
+        <Optimize>false</Optimize>
+        <OutputPath>bin\Debug\</OutputPath>
+        <DefineConstants>DEBUG;TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <DebugType>pdbonly</DebugType>
+        <Optimize>true</Optimize>
+        <OutputPath>bin\Release\</OutputPath>
+        <DefineConstants>TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+    <ItemGroup>
+        <Reference Include="CommandLine, Version=2.4.3.0, Culture=neutral, PublicKeyToken=de6f01bd326f8c32">
+          <HintPath>..\packages\CommandLineParser.2.4.3\lib\netstandard2.0\CommandLine.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="CommonServiceLocator, Version=2.0.2.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0">
+          <HintPath>..\packages\CommonServiceLocator.2.0.2\lib\net45\CommonServiceLocator.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="GalaSoft.MvvmLight, Version=5.4.1.0, Culture=neutral, PublicKeyToken=e7570ab207bcb616">
+          <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\GalaSoft.MvvmLight.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="GalaSoft.MvvmLight.Extras, Version=5.4.1.0, Culture=neutral, PublicKeyToken=669f0b5e8f868abf">
+          <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\GalaSoft.MvvmLight.Extras.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="GalaSoft.MvvmLight.Platform, Version=5.4.1.0, Culture=neutral, PublicKeyToken=5f873c45e98af8a1">
+          <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\GalaSoft.MvvmLight.Platform.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="mscorlib" />
+        <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
+          <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="System" />
+        <Reference Include="System.Collections.Immutable, Version=1.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+          <HintPath>..\packages\System.Collections.Immutable.1.2.0\lib\portable-net45+win8+wp8+wpa81\System.Collections.Immutable.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="System.Collections.NonGeneric, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+          <HintPath>..\packages\System.Collections.NonGeneric.4.0.1\lib\net46\System.Collections.NonGeneric.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="System.ComponentModel.Annotations, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+          <HintPath>..\packages\System.ComponentModel.Annotations.4.1.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="System.ComponentModel.DataAnnotations" />
+        <Reference Include="System.Core" />
+        <Reference Include="System.Data" />
+        <Reference Include="System.Drawing" />
+        <Reference Include="System.Runtime.Serialization" />
+        <Reference Include="System.Runtime.Serialization.Formatters, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+          <HintPath>..\packages\System.Runtime.Serialization.Formatters.4.3.0\lib\net46\System.Runtime.Serialization.Formatters.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="System.Runtime.Serialization.Primitives, Version=4.1.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+          <HintPath>..\packages\System.Runtime.Serialization.Primitives.4.3.0\lib\net46\System.Runtime.Serialization.Primitives.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+          <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\System.Windows.Interactivity.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="System.Xml" />
+        <Reference Include="System.Xaml">
+            <RequiredTargetFramework>4.0</RequiredTargetFramework>
+        </Reference>
+        <Reference Include="Theraot.Core, Version=3.0.2.0, Culture=neutral, PublicKeyToken=b1460dff8a28f7a7">
+          <HintPath>..\packages\Theraot.Core.3.0.2\lib\net46\Theraot.Core.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="Vanara.Core, Version=2.3.4.0, Culture=neutral, PublicKeyToken=c37e4080322237fa">
+          <HintPath>..\packages\Vanara.Core.2.3.4\lib\net45\Vanara.Core.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="Vanara.PInvoke.IpHlpApi, Version=2.3.4.0, Culture=neutral, PublicKeyToken=c37e4080322237fa">
+          <HintPath>..\packages\Vanara.PInvoke.IpHlpApi.2.3.4\lib\net45\Vanara.PInvoke.IpHlpApi.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="Vanara.PInvoke.Shared, Version=2.3.4.0, Culture=neutral, PublicKeyToken=c37e4080322237fa">
+          <HintPath>..\packages\Vanara.PInvoke.Shared.2.3.4\lib\net45\Vanara.PInvoke.Shared.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="Vanara.PInvoke.Ws2_32, Version=2.3.4.0, Culture=neutral, PublicKeyToken=c37e4080322237fa">
+          <HintPath>..\packages\Vanara.PInvoke.Ws2_32.2.3.4\lib\net45\Vanara.PInvoke.Ws2_32.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="WindowsBase" />
+        <Reference Include="PresentationCore" />
+        <Reference Include="PresentationFramework" />
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Include="MainWindowVM.cs" />
+        <Compile Include="Properties\Annotations.cs" />
+        <Compile Include="RequestsDispatcher.cs" />
+        <Compile Include="Request.cs" />
+        <Page Include="App.xaml">
+            <Generator>MSBuild:Compile</Generator>
+            <SubType>Designer</SubType>
+        </Page>
+        <Page Include="MainWindow.xaml">
+            <Generator>MSBuild:Compile</Generator>
+            <SubType>Designer</SubType>
+        </Page>
+        <Compile Include="App.xaml.cs">
+            <DependentUpon>App.xaml</DependentUpon>
+            <SubType>Code</SubType>
+        </Compile>
+        <Compile Include="EntryPoint.cs" />
+        <Compile Include="MainWindow.xaml.cs">
+            <DependentUpon>MainWindow.xaml</DependentUpon>
+            <SubType>Code</SubType>
+        </Compile>
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Include="Properties\AssemblyInfo.cs">
+            <SubType>Code</SubType>
+        </Compile>
+        <Compile Include="Properties\Resources.Designer.cs">
+            <AutoGen>True</AutoGen>
+            <DesignTime>True</DesignTime>
+            <DependentUpon>Resources.resx</DependentUpon>
+        </Compile>
+        <EmbeddedResource Include="Properties\Resources.resx">
+            <Generator>ResXFileCodeGenerator</Generator>
+            <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+    </ItemGroup>
+    <ItemGroup>
+        <None Include="App.config" />
+        <None Include="packages.config" />
+    </ItemGroup>
+    <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
