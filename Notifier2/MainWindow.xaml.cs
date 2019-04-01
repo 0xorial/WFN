@@ -23,7 +23,7 @@ namespace Notifier2
         private void ProcessNextRequest()
         {
             var request = RequestQueue.Dequeue();
-            var vm = new MainWindowVM(request, NextRequest) {TotalEvents = RequestQueue.Count};
+            var vm = new MainWindowVm(request, NextRequest) {TotalEvents = RequestQueue.Count};
             DataContext = vm;
         }
 

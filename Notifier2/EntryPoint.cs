@@ -4,6 +4,7 @@ using System.IO.Pipes;
 using System.Threading;
 using CommandLine;
 using Newtonsoft.Json;
+using Wokhan.WindowsFirewallNotifier.Common.Helpers;
 
 namespace Notifier2
 {
@@ -38,19 +39,28 @@ namespace Notifier2
                     writer.Write(s);
                 }
             });
-           
         }
 
         private static void RunMainApp(string[] args)
         {
             if (args.Length == 0)
             {
-                var app = new App {InitialRequest = new Request()};
+                var app = new App {InitialRequest = new Request
+                {
+                    Path = "C:\\somepath",
+                    Pid = 41,
+                    Protocol = FirewallHelper.getProtocolAsString(17),
+                    ProtocolIanaId = 11,
+                    TargetIp = "fewfew",
+                    ThreadId = 3432,
+                    LocalPort = 2222,
+                    TargetPort = 324324
+                }};
                 app.InitializeComponent();
                 app.Run();
                 return;
             }
-            
+
             var thread = new Thread(() =>
             {
                 using (var pipeServer = new NamedPipeServerStream(_wfnNotifierPipe, PipeDirection.In))
@@ -64,13 +74,29 @@ namespace Notifier2
 
             thread.Start();
 
-            var parserResult = Parser.Default.ParseArguments(args);
-            parserResult.WithParsed<Request>(options =>
+            var pars = ProcessHelper.ParseParameters(args);
+            var pid = int.Parse(pars["pid"]);
+            var threadid = int.Parse(pars["threadid"]);
+            string currentTarget = pars["ip"];
+            var currentTargetPort = int.Parse(pars["port"]);
+            var currentProtocol = int.Parse(pars["protocol"]);
+            var currentLocalPort = int.Parse(pars["localport"]);
+            string currentPath = pars["path"];
+
+
+            var app2 = new App {InitialRequest = new Request
             {
-                var app = new App {InitialRequest = options};
-                app.InitializeComponent();
-                app.Run();
-            });
+                Pid = pid,
+                ThreadId = threadid,
+                TargetIp = currentTarget,
+                TargetPort = currentTargetPort,
+                Protocol = FirewallHelper.getProtocolAsString(currentProtocol),
+                ProtocolIanaId = currentProtocol,
+                LocalPort = currentLocalPort,
+                Path = currentPath
+            }};
+            app2.InitializeComponent();
+            app2.Run();
         }
     }
 }
