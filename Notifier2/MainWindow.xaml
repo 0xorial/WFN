@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:notifier2="clr-namespace:Notifier2"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525"
+        Title="MainWindow" Height="200" Width="525"
         d:DataContext="{d:DesignInstance notifier2:MainWindowVm}" WindowStyle="None">
     <Window.Resources>
         <ResourceDictionary>
@@ -15,80 +15,48 @@
         </ResourceDictionary>
     </Window.Resources>
     <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-        <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
-            <TextBlock Text="{Binding Request.Path}" HorizontalAlignment="Stretch"/>
+        <TextBlock Text="{Binding Request.Path}" HorizontalAlignment="Stretch" />
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="Service: " />
+            <TextBlock Text="{Binding Request.ServiceName}" />
         </StackPanel>
-        <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal" >
-            <TextBlock Text="And " HorizontalAlignment="Stretch"/>
-            <TextBlock Text="{Binding TotalEvents}" />
-            <TextBlock Text=" other events." HorizontalAlignment="Stretch"/>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="App: " />
+            <TextBlock Text="{Binding Request.AppId}" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="Port: " />
+            <TextBlock Text="{Binding Request.TargetPort}" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="Protocol: " />
+            <TextBlock Text="{Binding Request.Protocol}" />
         </StackPanel>
         <Grid HorizontalAlignment="Stretch">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Button Command="{Binding AllowCommand}" Grid.Column="0">Allow</Button>
-            <Button Command="{Binding BlockCommand}" Grid.Column="1">Block</Button>
-            <Button Command="{Binding SkipCommand}" Grid.Column="2">Skip</Button>
+            <Button Command="{Binding AllowAllCommand}" Grid.Column="0" Grid.Row="0" MinHeight="50">Allow for all IPs</Button>
+            <Button Command="{Binding BlockAllCommand}" Grid.Column="1" Grid.Row="0" MinHeight="50">Block for all IPs</Button>
         </Grid>
         <Grid HorizontalAlignment="Stretch">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-            </Grid.RowDefinitions>
-
-            <ToggleButton IsChecked="{Binding UseProtocol}" Grid.Row="0" Grid.Column="1">
+            <Button Command="{Binding AllowTargetCommand}" Grid.Column="0" Grid.Row="0" MinHeight="50">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Protocol: " />
-                    <TextBlock Text="{Binding Request.Protocol}" />
-                </StackPanel>
-            </ToggleButton>
-
-            <ToggleButton IsChecked="{Binding UseLocalPort}" Grid.Row="1" Grid.Column="0">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Local port: " />
-                    <TextBlock Text="{Binding Request.LocalPort}" />
-                </StackPanel>
-            </ToggleButton>
-
-            <ToggleButton IsChecked="{Binding UseService}" Grid.Row="1" Grid.Column="1"
-                          IsEnabled="{Binding Request.HasService}">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Service: " />
-                    <TextBlock Text="{Binding Request.ServiceName}" />
-                </StackPanel>
-            </ToggleButton>
-
-            <ToggleButton IsChecked="{Binding UseTargetPort}" Grid.Row="2" Grid.Column="0">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Target port: " />
-                    <TextBlock Text="{Binding Request.TargetPort}" />
-                </StackPanel>
-            </ToggleButton>
-
-            <ToggleButton IsChecked="{Binding UseTargetIp}" Grid.Row="2" Grid.Column="1">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Target: " />
+                    <TextBlock Text="Allow only to: " />
                     <TextBlock Text="{Binding Request.TargetIp}" />
                 </StackPanel>
-            </ToggleButton>
-
-            <ToggleButton IsChecked="{Binding UseAppId}" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
-                          IsEnabled="{Binding Request.HasAppId}">
+            </Button>
+            <Button Command="{Binding BlockTargetCommand}" Grid.Column="1" Grid.Row="0" MinHeight="50">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="App: " />
-                    <TextBlock Text="{Binding Request.AppId}" />
+                    <TextBlock Text="Block to: " />
+                    <TextBlock Text="{Binding Request.TargetIp}" />
                 </StackPanel>
-            </ToggleButton>
-
+            </Button>
         </Grid>
     </StackPanel>
 </Window>

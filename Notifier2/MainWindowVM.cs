@@ -19,13 +19,13 @@ namespace Notifier2
             _closeWindow = closeWindow;
             _request = MakeRequest(ri);
             var ruleBuilder = new RuleBuilder(this);
-            AllowCommand = new RelayCommand(() =>
+            AllowAllCommand = new RelayCommand(() =>
             {
                 ruleBuilder.Allow = true;
                 RuleCreator.CreateRule(ruleBuilder);
                 OnDone();
             });
-            BlockCommand = new RelayCommand(() =>
+            BlockAllCommand = new RelayCommand(() =>
             {
                 ruleBuilder.Allow = false;
                 RuleCreator.CreateRule(ruleBuilder);
@@ -88,8 +88,8 @@ namespace Notifier2
             }
         }
 
-        public ICommand AllowCommand { get; set; }
-        public ICommand BlockCommand { get; set; }
+        public ICommand AllowAllCommand { get; set; }
+        public ICommand BlockAllCommand { get; set; }
         public ICommand SkipCommand { get; set; }
 
         private bool _useProtocol;

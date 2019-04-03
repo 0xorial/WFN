@@ -5,7 +5,7 @@ using Wokhan.WindowsFirewallNotifier.Common.Helpers;
 
 namespace Notifier2
 {
-    public class ServiceResolver
+    public static class ServiceResolver
     {
         public class ServiceInfo
         {
