@@ -10,6 +10,7 @@ namespace Notifier2
     /// </summary>
     public partial class App
     {
+        private MainWindowVm _mainWindowVm;
         public ClientRequestInfo InitialRequest { get; set; }
 
         private void App_OnStartup(object sender, StartupEventArgs e)
@@ -25,7 +26,7 @@ namespace Notifier2
                     info.TargetIp,
                     info.TargetPort.ToString(),
                     info.LocalPort.ToString(),
-                    new[] {serviceInfo.Id},
+                    serviceInfo == null ? new string[0] : new[] {serviceInfo.Id},
                     ProcessHelper.getLocalUserOwner(info.Pid),
                     true);
                 if (blockingRules.Any())
@@ -35,25 +36,25 @@ namespace Notifier2
 
                 HandleRequest(info);
             };
-            
+
             HandleRequest(InitialRequest);
         }
 
         private void HandleRequest(ClientRequestInfo requestInfo)
         {
-            MainWindowVm vm = null;
             Dispatcher.BeginInvoke(new Action(() =>
             {
-                if (vm == null)
+                if (_mainWindowVm == null)
                 {
                     var window = new MainWindow();
-                    vm = new MainWindowVm(InitialRequest, () => window.Close());
-                    window.DataContext = vm;
+                    _mainWindowVm = new MainWindowVm(InitialRequest, () => window.Close());
+                    window.DataContext = _mainWindowVm;
+                    window.Closed += (sender, args) => { _mainWindowVm = null; };
                     window.Show();
                 }
                 else
                 {
-                    vm.AddNewRequest(requestInfo);
+                    _mainWindowVm.AddNewRequest(requestInfo);
                 }
             }));
         }

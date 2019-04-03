@@ -45,7 +45,9 @@ namespace Notifier2
                 TargetIp = ri.TargetIp,
                 ThreadId = ri.ThreadId,
                 LocalPort = ri.LocalPort,
-                TargetPort = ri.TargetPort
+                TargetPort = ri.TargetPort,
+                AppId = ProcessHelper.getAppPkgId(ri.Pid),
+                ServiceName = ServiceResolver.TryGetServiceName(ri)?.Description
             };
         }
 
