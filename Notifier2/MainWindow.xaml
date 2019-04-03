@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:notifier2="clr-namespace:Notifier2"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525" Loaded="MainWindow_OnLoaded"
+        Title="MainWindow" Height="350" Width="525"
         d:DataContext="{d:DesignInstance notifier2:MainWindowVm}" WindowStyle="None">
     <Window.Resources>
         <ResourceDictionary>
@@ -16,7 +16,12 @@
     </Window.Resources>
     <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
-            <TextBlock Text="{Binding Request.Path}" />
+            <TextBlock Text="{Binding Request.Path}" HorizontalAlignment="Stretch"/>
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal" >
+            <TextBlock Text="And " HorizontalAlignment="Stretch"/>
+            <TextBlock Text="{Binding TotalEvents}" />
+            <TextBlock Text=" other events." HorizontalAlignment="Stretch"/>
         </StackPanel>
         <Grid HorizontalAlignment="Stretch">
             <Grid.ColumnDefinitions>

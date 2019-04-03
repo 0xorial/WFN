@@ -1,31 +1,65 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
-using GalaSoft.MvvmLight.CommandWpf;
 using Notifier2.Annotations;
+using Wokhan.WindowsFirewallNotifier.Common.Helpers;
 
 namespace Notifier2
 {
     public sealed class MainWindowVm : INotifyPropertyChanged
-    {        
-        public MainWindowVm(Request request, Action onDone)
+    {
+        private readonly Action _closeWindow;
+        private readonly Queue<ClientRequestInfo> _queue = new Queue<ClientRequestInfo>();
+
+
+        public MainWindowVm(ClientRequestInfo ri, Action closeWindow)
         {
-            _request = request;
+            _closeWindow = closeWindow;
+            _request = MakeRequest(ri);
             var ruleBuilder = new RuleBuilder(this);
             AllowCommand = new RelayCommand(() =>
             {
                 ruleBuilder.Allow = true;
                 RuleCreator.CreateRule(ruleBuilder);
-                onDone();
+                OnDone();
             });
             BlockCommand = new RelayCommand(() =>
             {
                 ruleBuilder.Allow = false;
                 RuleCreator.CreateRule(ruleBuilder);
-                onDone();
+                OnDone();
             });
-            SkipCommand = new RelayCommand(onDone);
+            SkipCommand = new RelayCommand(OnDone);
+        }
+
+        private Request MakeRequest(ClientRequestInfo ri)
+        {
+            return new Request
+            {
+                Pid = ri.Pid,
+                Path = ri.Path,
+                ProtocolIanaId = ri.ProtocolIanaId,
+                Protocol = FirewallHelper.getProtocolAsString(ri.ProtocolIanaId),
+                TargetIp = ri.TargetIp,
+                ThreadId = ri.ThreadId,
+                LocalPort = ri.LocalPort,
+                TargetPort = ri.TargetPort
+            };
+        }
+
+        private void OnDone()
+        {
+            if (_queue.Count == 0)
+            {
+                _closeWindow();
+            }
+            else
+            {
+                Request = MakeRequest(_queue.Dequeue());
+                TotalEvents = _queue.Count;
+            }
         }
 
         private int _totalEvents;
@@ -53,7 +87,7 @@ namespace Notifier2
                 OnPropertyChanged();
             }
         }
-        
+
         public ICommand AllowCommand { get; set; }
         public ICommand BlockCommand { get; set; }
         public ICommand SkipCommand { get; set; }
@@ -135,13 +169,19 @@ namespace Notifier2
                 OnPropertyChanged();
             }
         }
-        
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public void AddNewRequest(ClientRequestInfo request)
+        {
+            _queue.Enqueue(request);
+            TotalEvents = _queue.Count;
         }
     }
 }

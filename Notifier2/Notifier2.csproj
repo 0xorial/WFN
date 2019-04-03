@@ -42,18 +42,6 @@
           <HintPath>..\packages\CommonServiceLocator.2.0.2\lib\net45\CommonServiceLocator.dll</HintPath>
           <Private>True</Private>
         </Reference>
-        <Reference Include="GalaSoft.MvvmLight, Version=5.4.1.0, Culture=neutral, PublicKeyToken=e7570ab207bcb616">
-          <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\GalaSoft.MvvmLight.dll</HintPath>
-          <Private>True</Private>
-        </Reference>
-        <Reference Include="GalaSoft.MvvmLight.Extras, Version=5.4.1.0, Culture=neutral, PublicKeyToken=669f0b5e8f868abf">
-          <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\GalaSoft.MvvmLight.Extras.dll</HintPath>
-          <Private>True</Private>
-        </Reference>
-        <Reference Include="GalaSoft.MvvmLight.Platform, Version=5.4.1.0, Culture=neutral, PublicKeyToken=5f873c45e98af8a1">
-          <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\GalaSoft.MvvmLight.Platform.dll</HintPath>
-          <Private>True</Private>
-        </Reference>
         <Reference Include="mscorlib" />
         <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
           <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -85,10 +73,6 @@
           <HintPath>..\packages\System.Runtime.Serialization.Primitives.4.3.0\lib\net46\System.Runtime.Serialization.Primitives.dll</HintPath>
           <Private>True</Private>
         </Reference>
-        <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
-          <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\System.Windows.Interactivity.dll</HintPath>
-          <Private>True</Private>
-        </Reference>
         <Reference Include="System.Xml" />
         <Reference Include="System.Xaml">
             <RequiredTargetFramework>4.0</RequiredTargetFramework>
@@ -118,13 +102,18 @@
         <Reference Include="PresentationFramework" />
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="ClientRequestInfo.cs" />
         <Compile Include="FirewallRule.cs" />
+        <Compile Include="Ipc\Common.cs" />
+        <Compile Include="Ipc\IpcClient.cs" />
+        <Compile Include="Ipc\IpcServer.cs" />
         <Compile Include="MainWindowVM.cs" />
         <Compile Include="Properties\Annotations.cs" />
-        <Compile Include="RequestsDispatcher.cs" />
+        <Compile Include="RelayCommand.cs" />
         <Compile Include="Request.cs" />
         <Compile Include="RuleBuilder.cs" />
         <Compile Include="RuleCreator.cs" />
+        <Compile Include="ServiceResolver.cs" />
         <Page Include="App.xaml">
             <Generator>MSBuild:Compile</Generator>
             <SubType>Designer</SubType>

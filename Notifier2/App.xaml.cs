@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows;
 
 namespace Notifier2
@@ -9,32 +8,30 @@ namespace Notifier2
     /// </summary>
     public partial class App
     {
-        private MainWindow _window;
-        private readonly Queue<Request> _queue = new Queue<Request>();
-        public Request InitialRequest { get; set; }
+        public ClientRequestInfo InitialRequest { get; set; }
 
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
-            _queue.Enqueue(InitialRequest);
-            ProcessRequest(InitialRequest);
-
-            RequestsDispatcher.DispatchRequest = request => Dispatcher.BeginInvoke(new Action(() =>
-            {
-                ProcessRequest(request);
-            }));
+            new IpcServer().OnReceive += HandleRequest;
         }
 
-        private void ProcessRequest(Request request)
+        private void HandleRequest(ClientRequestInfo requestInfo)
         {
-            if (_window == null)
+            MainWindowVm vm = null;
+            Dispatcher.BeginInvoke(new Action(() =>
             {
-                _window = new MainWindow {RequestQueue = _queue};
-                _window.Show();
-            }
-            else
-            {
-                _queue.Enqueue(request);
-            }
+                if (vm == null)
+                {
+                    var window = new MainWindow();
+                    vm = new MainWindowVm(InitialRequest, () => window.Close());
+                    window.DataContext = vm;
+                    window.Show();
+                }
+                else
+                {
+                    vm.AddNewRequest(requestInfo);
+                }
+            }));
         }
     }
 }

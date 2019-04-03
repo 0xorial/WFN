@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
+using Wokhan.WindowsFirewallNotifier.Common.Helpers;
 
 namespace Notifier2
 {
@@ -11,30 +12,6 @@ namespace Notifier2
         public MainWindow()
         {
             InitializeComponent();
-        }
-
-        public Queue<Request> RequestQueue { get; set; }
-
-        private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
-        {
-            ProcessNextRequest();
-        }
-
-        private void ProcessNextRequest()
-        {
-            var request = RequestQueue.Dequeue();
-            var vm = new MainWindowVm(request, NextRequest) {TotalEvents = RequestQueue.Count};
-            DataContext = vm;
-        }
-
-        private void NextRequest()
-        {
-            if (RequestQueue.Count == 0)
-            {
-                Close();
-            }
-
-            ProcessNextRequest();
         }
     }
 }
