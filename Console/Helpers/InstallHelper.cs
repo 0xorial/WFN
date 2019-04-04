@@ -215,7 +215,7 @@ namespace Wokhan.WindowsFirewallNotifier.Console.Helpers
             bool ret = ProcessHelper.getProcessFeedback(Environment.SystemDirectory + "\\schtasks.exe",
                 "/IT /Create /TN WindowsFirewallNotifierTask /XML \"" + tmpXML + "\"");
 
-            File.Delete(tmpXML);n
+            File.Delete(tmpXML);
 
             return ret;
         }
