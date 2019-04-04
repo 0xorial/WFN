@@ -62,21 +62,13 @@ namespace Wokhan.WindowsFirewallNotifier.Console.Helpers
             {
                 if (FirewallHelper.EnableWindowsFirewall())
                 {
-                    if (CreateDefaultRules())
+                    if (createTask(allUsers))
                     {
-                        if (createTask(allUsers))
-                        {
-                            callback(true, Resources.MSG_INST_OK);
-                        }
-                        else
-                        {
-                            callback(false, Resources.MSG_INST_TASK_ERR);
-                            return false;
-                        }
+                        callback(true, Resources.MSG_INST_OK);
                     }
                     else
                     {
-                        callback(false, "Unable to create the default rules, please consider reactivating WFN.");
+                        callback(false, Resources.MSG_INST_TASK_ERR);
                         return false;
                     }
                 }
@@ -94,102 +86,6 @@ namespace Wokhan.WindowsFirewallNotifier.Console.Helpers
 
             return true;
         }
-
-        private static bool CreateDefaultRules()
-        {
-            bool ret = true;
-            var rules = FirewallHelper.GetRules();
-            using (ServiceController sc = new ServiceController())
-            {
-                string rname;
-
-                // Windows 8 or higher
-                if (Environment.OSVersion.Version >= new System.Version(6, 2))
-                {
-                    rname = String.Format(Resources.RULE_NAME_FORMAT, "Windows Applications (auto)");
-                    if (rules.All(r => r.Name != rname))
-                    {
-                        FirewallHelper.CustomRule newRule = new FirewallHelper.CustomRule(rname,
-                            Environment.SystemDirectory + "\\wwahost.exe",
-                            null,
-                            null,
-                            (string) null,
-                            (int) FirewallHelper.Protocols.ANY,
-                            null,
-                            null,
-                            null,
-                            FirewallHelper.GetGlobalProfile(),
-                            "A");
-                        ret = ret && newRule.Apply(false);
-                    }
-                }
-
-                sc.ServiceName = "wuauserv";
-                rname = String.Format(Resources.RULE_NAME_FORMAT, sc.DisplayName + " (auto)");
-                if (rules.All(r => r.Name != rname + " [R:80,443]"))
-                {
-                    FirewallHelper.CustomRule newRule = new FirewallHelper.CustomRule(rname,
-                        Environment.SystemDirectory + "\\svchost.exe",
-                        null,
-                        null,
-                        "wuauserv",
-                        (int) FirewallHelper.Protocols.TCP,
-                        null,
-                        "80,443",
-                        null,
-                        FirewallHelper.GetGlobalProfile(),
-                        "A");
-                    ret = ret && newRule.Apply(false);
-                }
-
-                sc.ServiceName = "bits";
-                rname = String.Format(Resources.RULE_NAME_FORMAT, sc.DisplayName + "(auto)");
-                if (rules.All(r => r.Name != rname + " [R:80,443]"))
-                {
-                    FirewallHelper.CustomRule newRule = new FirewallHelper.CustomRule(rname,
-                        Environment.SystemDirectory + "\\svchost.exe",
-                        null,
-                        null,
-                        "bits",
-                        (int) FirewallHelper.Protocols.TCP,
-                        null,
-                        "80,443",
-                        null,
-                        FirewallHelper.GetGlobalProfile(),
-                        "A");
-                    ret = ret && newRule.Apply(false);
-                }
-
-                sc.ServiceName = "cryptsvc";
-                rname = String.Format(Resources.RULE_NAME_FORMAT, sc.DisplayName + "(auto)");
-                if (rules.All(r => r.Name != rname + " [R:80]"))
-                {
-                    FirewallHelper.CustomRule newRule = new FirewallHelper.CustomRule(rname,
-                        Environment.SystemDirectory + "\\svchost.exe",
-                        null,
-                        null,
-                        "cryptsvc",
-                        (int) FirewallHelper.Protocols.TCP,
-                        null,
-                        "80",
-                        null,
-                        FirewallHelper.GetGlobalProfile(),
-                        "A");
-                    ret = ret && newRule.Apply(false);
-                }
-
-                //sc.ServiceName = "aelookupsvc";
-                //rname = String.Format(Resources.RULE_NAME_FORMAT, sc.DisplayName + "(auto)");
-                //if (rules.All(r => r.Name != rname + " [R:80]"))
-                //{
-                //    FirewallHelper.CustomRule newRule = new FirewallHelper.CustomRule(rname, Environment.SystemDirectory + "\\svchost.exe", null, null,"aelookupsvc", (int)NET_FW_IP_PROTOCOL_.NET_FW_IP_PROTOCOL_TCP, null, "80", null, FirewallHelper.GetGlobalProfile(), "A");
-                //    ret = ret && newRule.Apply(false);
-                //}
-            }
-
-            return ret;
-        }
-
 
         /// <summary>
         /// 
