@@ -248,7 +248,7 @@
                 <Expander.Header>
                     <TextBlock Text="{x:Static resx:Resources.FW_RULE_ADVANCED}"/>
                 </Expander.Header>
-                <ScrollViewer VerticalScrollBarVisibility="Visible" Height="110">
+                <ScrollViewer VerticalScrollBarVisibility="Visible" Height="230">
                     <Grid DataContext="{Binding SelectedItem, ElementName=lstConnections}">
                         <Grid.RowDefinitions>
                             <RowDefinition />
