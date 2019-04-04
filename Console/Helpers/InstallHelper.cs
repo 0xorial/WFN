@@ -206,7 +206,7 @@ namespace Wokhan.WindowsFirewallNotifier.Console.Helpers
                     allUsers
                         ? "<UserId>NT AUTHORITY\\SYSTEM</UserId>" //"<GroupId>S-1-5-32-545</GroupId>" 
                         : "<UserId><![CDATA[" + WindowsIdentity.GetCurrent().Name + "]]></UserId>",
-                    "\"" + Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Notifier2.exe") + "\"",
+                    "\"" + Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Notifier.exe") + "\"",
                     DateTime.Now.ToString("s"));
             }
 
@@ -215,7 +215,7 @@ namespace Wokhan.WindowsFirewallNotifier.Console.Helpers
             bool ret = ProcessHelper.getProcessFeedback(Environment.SystemDirectory + "\\schtasks.exe",
                 "/IT /Create /TN WindowsFirewallNotifierTask /XML \"" + tmpXML + "\"");
 
-            File.Delete(tmpXML);
+            File.Delete(tmpXML);n
 
             return ret;
         }

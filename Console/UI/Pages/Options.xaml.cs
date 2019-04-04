@@ -44,7 +44,7 @@ namespace Wokhan.WindowsFirewallNotifier.Console.UI.Pages
 
         private void btnTestNotif_Click(object sender, RoutedEventArgs e)
         {
-            Process.Start(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Notifier2.exe"));
+            Process.Start(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Notifier.exe"));
         }
 
         private void btnRestartAdmin_Click(object sender, RoutedEventArgs e)
