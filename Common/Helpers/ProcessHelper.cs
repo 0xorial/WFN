@@ -422,7 +422,7 @@ namespace Wokhan.WindowsFirewallNotifier.Common.Helpers
             {
                 svc = svcs;
                 svcdsc = svcs.Select(s => getServiceDesc(s)).ToArray();
-                unsure = true;
+                unsure = false;
                 LogHelper.Debug("Identified service as: " + String.Join(",", svcdsc));
                 return;
             }
